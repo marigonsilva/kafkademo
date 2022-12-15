@@ -1,3 +1,4 @@
+import time
 from kafka import KafkaConsumer
 import logging
 
@@ -13,6 +14,11 @@ class Consumer:
     def _init_kafka_consumer(self):
         self.kafka_host = "kafka-local.kafkaplaypen.svc.cluster.local:9092"
         self.kafka_topic = "my-topic"
+        self.sasl_mechanisms = "PLAIN"
+        self.sasl_username = "admin"
+        self.sasl_password = "admin"
+        self.security_protocol = "SASL_SSL"
+        self.auto_offset_reset="latest",
         self.consumer = KafkaConsumer(
             "my-topic",
             bootstrap_servers=self.kafka_host,
@@ -28,4 +34,6 @@ if __name__ == "__main__":
     consumer = Consumer()
 
     while True:
+        
         consumer.consume_from_kafka()
+        time.sleep(500)
